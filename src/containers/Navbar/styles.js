@@ -5,21 +5,29 @@ export const Container = styled.div`
   height: 50px;
   width: 100vw;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
   padding-top: 40px;
 `
 
-export const NavLink = styled(link).attrs(({ theme }) => ({
+export const NavLink = styled(link).attrs(() => ({
   activeStyle: {
-    color: theme.colors.fonts.accent,
+    color: '#00A676'
   },
   exact: true,
 }))`
-  font-family: ${({ theme }) => theme.fonts.header.family};
-  font-weight: ${({ theme }) => theme.fonts.header.weight};
-  font-size: 22px;
-  color: ${({ theme }) => theme.colors.fonts.header};
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+  margin: 0 20px;
+  text-decoration: none;
+`
+export const Title = styled.p`
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: #0E7695;
   margin: 0 20px;
   text-decoration: none;
 `
