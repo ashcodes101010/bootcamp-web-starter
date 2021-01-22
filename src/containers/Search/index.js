@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { Link, useParams, useHistory } from 'react-router-dom'
-import { Container, Row, ItemContainer } from './styles'
+import { Container, Header, Grid, Row, ItemContainer, SearchInput, Button } from './styles'
 import { ALL_ITEMS, ADD_ITEM, DECREMENT_STOCK } from './graphql'
 
 // const jwt = require('jsonwebtoken')
@@ -31,16 +31,14 @@ const Search = () => {
         },
     })
 
-    console.log(data)
-
-  const [addCartItem, { error: addItemError, loading: addItemLoading }] = useMutation(ADD_ITEM, {
-    variables: {
-      input: {
-        userId,
-        itemId,
-      },
-    },
-  })
+  // const [addCartItem, { error: addItemError, loading: addItemLoading }] = useMutation(ADD_ITEM, {
+  //   variables: {
+  //     input: {
+  //       userId: ?,
+  //       itemId: itemId,
+  //     },
+  //   },
+  // })
 
   const [decrementStock, { error: decrementError, loading: decrementLoading }] = useMutation(DECREMENT_STOCK, {
     variables: {
@@ -50,7 +48,7 @@ const Search = () => {
   })
 
   const handleCart = () => {
-    addCartItem()
+    // addCartItem()
     decrementStock()
   }
 
@@ -63,37 +61,35 @@ const Search = () => {
     }
 
     return (
+      <Container>
+        <Header>
+          <h2>Search results for: { id }</h2>
+          <Row>
+              <SearchInput placeholder='Search items' value={item} onChange={e => setItem(e.target.value)} />
+              <Button onClick={() => history.push(`/search/${item}`)}>Search</Button>
+          </Row>
+        </Header>
+        {data.searchItems.length === 0 ?
         <>
-            <Container>
-                <h1>Search results for: { id }</h1>
-                <Row>
-                    <input placeholder='Search items' value={item} onChange={e => setItem(e.target.value)} />
-                    <button onClick={() => history.push(`/search/${item}`)}>Search</button>
-                </Row>
-            </Container>
-            {data.searchItems.length === 0 ?
-            <>
-                <p>No items available</p>
-            </>
-            :
-                <ItemContainer>
-                    {loading ? 'loading...' : data.searchItems.map(item => (
-                        <div>
-                            <img src={item.imgUrl}/>
-                            <p>name: {item.name}</p>
-                            <p>seller: {item.seller.username}</p>
-                            <p>desc: {item.description}</p>
-                            <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
-                            <p>price: ${item.price}</p>
-                            <p>stock: {item.stock}</p>
-                            <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
-
-                            
-                        </div>
-                    ))}
-                </ItemContainer>
-            }   
+            <p>No items available</p>
         </>
+        :
+            <Grid>
+                {loading ? 'loading...' : data.searchItems.map(item => (
+                    <ItemContainer>
+                        <img src={item.imgUrl}/>
+                        <p>name: {item.name}</p>
+                        <p>seller: {item.seller.username}</p>
+                        <p>desc: {item.description}</p>
+                        <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
+                        <p>price: ${item.price}</p>
+                        <p>stock: {item.stock}</p>
+                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
+                    </ItemContainer>
+                ))}
+            </Grid>
+         }   
+        </Container>
     )}
 
 
