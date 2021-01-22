@@ -6,11 +6,13 @@ import { ADD_MONEY } from './graphql'
 import { StyledButton, Container, Body, InputContainer } from './styles'
 
 const AddMoney = () => {
+  const userId = localStorage.getItem('userId')
+  
   const [money, setMoney] = useState('')
   const [msg, setMsg] = useState('')
-  // UPDATE PLACEHOLDER W/ TOKEN USERID EVENTUALLY
+
   const [addMoney] = useMutation(ADD_MONEY, {
-    variables: { id: '5b5ead2b-490d-4b63-91a5-413eb67ec209', money },
+    variables: { id: userId, money },
     onError: () => setMsg('could not add funds'),
     onCompleted: () => {
       setMsg(`$${money} added to balance`)
