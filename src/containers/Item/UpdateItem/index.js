@@ -1,15 +1,16 @@
 import React, { useReducer } from 'react'
-// import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
 import { UPDATE_ITEM, SPECIFIC_ITEM } from './graphql'
 
 import ItemDetails from '../components/ItemDetails'
 import Photo from '../components/Photo'
+import { Body, FlexContainer } from '../styles'
 
 
 const UpdateItem = () => {
-  // const itemId = useParams()
+  const itemId = useParams().id
   const history = useHistory()
   const reducer = (prevState, payload) => ({ ...prevState, ...payload })
   const [form, setForm] = useReducer(reducer, {
@@ -20,7 +21,7 @@ const UpdateItem = () => {
     stock: '',
     tag: '',
     tags: [],
-    errorMsg: '',
+    msg: '',
   })
   // necessary to strip __typename field
   const getTags = tags => {
@@ -30,23 +31,23 @@ const UpdateItem = () => {
   }
   const [updateItem] = useMutation(UPDATE_ITEM, {
     variables: {
-      id: '5fa8591b-0baf-4f5c-b97c-a0049eb957ef',
+      id: itemId,
       input: {
         name: form.name,
-        sellerId: 'bc420ebb-a6f1-4492-9fe6-6b2786e8a350',
+        sellerId: '5b5ead2b-490d-4b63-91a5-413eb67ec209',
         imgUrl: form.imgUrl,
         description: form.description,
         price: form.price,
         stock: form.stock,
-        tags: [{ tag: 'hello' }, { tag: 'hey' }],
+        tags: form.tags,
       },
     },
     onError: () => setForm({ errorMsg: 'Could not update listing. Please try again.' }),
-    onCompleted: () => history.push('/account'),
+    onCompleted: () => setForm({ msg: 'Listing updated!' }),
   })
 
   const { loading, error } = useQuery(SPECIFIC_ITEM, {
-    variables: { id: '5fa8591b-0baf-4f5c-b97c-a0049eb957ef' },
+    variables: { id: itemId },
     onCompleted: data => {
       const {
         item: {
@@ -69,20 +70,19 @@ const UpdateItem = () => {
     },
   })
 
-  if (loading) return 'Loading...'
-  if (error) return 'There was an error.'
+  if (loading) return <Body>Loading...</Body>
+  if (error) return <Body>There was an error.</Body>
 
   return (
-    <div>
-      { form.errorMsg !== '' && <div>{form.errorMsg}</div> }
+    <Body>
+      <br />
+      { form.msg !== '' && <div>{form.msg}</div> }
       <h1>Update Item Details</h1>
-      <Photo value={form.imgUrl} setValue={setForm} />
-      <ItemDetails
-        value={form}
-        setValue={setForm}
-      />
-      <button type="button" onClick={updateItem}>Update Item Listing</button>
-    </div>
+      <FlexContainer>
+        <Photo value={form.imgUrl} setValue={setForm} />
+        <ItemDetails value={form} setValue={setForm} action={updateItem} msg="Update Item Listing"/>
+      </FlexContainer>
+    </Body>
   )
 }
 

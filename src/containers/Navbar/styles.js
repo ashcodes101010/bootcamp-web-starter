@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
+  padding-top: 40px;
 `
 
 export const NavLink = styled(link).attrs(({ theme }) => ({

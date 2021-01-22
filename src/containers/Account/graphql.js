@@ -8,6 +8,7 @@ export const USER = gql`
       transactions {
         item {
           name
+          description
           seller {
             username
           }

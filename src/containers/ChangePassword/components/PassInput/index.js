@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { StyledInput } from './styles'
+
 const PassInput = ({ value, setValue, placeholder }) => (
-  <input
+  <StyledInput
     type="password"
     value={value}
     onChange={e => setValue(e.target.value)}

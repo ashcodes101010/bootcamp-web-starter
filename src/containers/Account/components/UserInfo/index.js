@@ -1,28 +1,43 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+
+import { Container } from '../../styles'
+import { LeftUserInfo, UserInfoDiv, StyledButton, RightUserInfo } from './styles'
 
 
-const UserInfo = ({ username, money }) => (
-  <div>
-    <div>
-      <p>
-        Username:&nbsp;
-        {username}
-      </p>
-      <p>
-        Account Balance:&nbsp;
-        {money}
-      </p>
-    </div>
-    <div>
-      <Link to="/change-password">
-        <button type="button">Change Password</button>
-      </Link>
-      <Link to="/add-money">
-        <button type="button">Add Money to Balance</button>
-      </Link>
-    </div>
-  </div>
-)
+const UserInfo = ({ username, money }) => {
+  const history = useHistory()
+  return (
+    <Container>
+      <UserInfoDiv>
+        <LeftUserInfo>
+          <p>
+            <strong>Username:</strong>&nbsp;
+            {username}
+          </p>
+          <p>
+          <strong>Account Balance:</strong>&nbsp;
+            {`$${money}`}
+          </p>
+        </LeftUserInfo>
+        <RightUserInfo>
+          <StyledButton 
+            type="button" 
+            onClick={() => history.push('/change-password')}
+          >
+            Change Password
+          </StyledButton>
+          <br />
+          <StyledButton 
+            type="button" 
+            onClick={() => history.push('/add-money')}
+          >
+            Add Money to Balance
+          </StyledButton>
+        </RightUserInfo>
+      </UserInfoDiv>
+    </Container>
+  )
+}
 
 export default UserInfo

@@ -1,10 +1,14 @@
 import gql from 'graphql-tag'
 
 export const ALL_ITEMS = gql`
-    query allItems {
-        allItems {
+    query searchItems($input: String!) {
+        searchItems(input: $input) {
+            id
             name
             imgUrl
+            seller {
+                username
+            }
             description
             tags {
                 tag
@@ -15,13 +19,20 @@ export const ALL_ITEMS = gql`
     }
 `
 
-// export const ADD_ITEM = gql`
-//     mutation addAuthor ($input: addAuthorInput!) {
-//     addAuthor (input: $input) {
-//         firstName
-//         lastName
-//         age
-//         email
-//     }
-// }
-// `
+export const ADD_ITEM = gql`
+    mutation addCartItem($input: CartInput!) {
+    addCartItem(input: $input) {
+        id
+        item {
+        id
+        }
+    }
+    }
+`
+export const DECREMENT_STOCK = gql`
+    mutation decrementStock($id: ID!) {
+    decrementStock(id: $id) {
+    stock
+  }
+}
+`

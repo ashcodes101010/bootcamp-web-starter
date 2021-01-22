@@ -5,6 +5,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { REMOVE_ITEM } from './graphql'
 
+import { Table, Container } from '../../styles'
+import { Delete, Update, StyledButton, Add } from './styles'
+
 
 const Shop = ({ items, refetch }) => {
   const history = useHistory()
@@ -23,13 +26,15 @@ const Shop = ({ items, refetch }) => {
   })
 
   return (
-    <div>
-      <table>
+    <Container>
+      <Table>
         <thead>
           <tr>
             <th>Item</th>
             <th>Price</th>
             <th>Stock</th>
+            <th class="update"></th>
+            <th class="remove"></th>
           </tr>
         </thead>
         <tbody>
@@ -38,30 +43,41 @@ const Shop = ({ items, refetch }) => {
               return (
                 <tr key={item.id}>
                   <td>{item.name}</td>
-                  <td>{item.price}</td>
+                  <td>{`$${item.price}`}</td>
                   <td>{item.stock}</td>
                   <td>
-                    <button type="button" onClick={() => history.push(`/update-item/${item.id}`)}>
+                    <Update type="button" onClick={() => history.push(`/update-item/${item.id}`)}>
                   Update
-                    </button>
+                    </Update>
                   </td>
                   <td>
-                    <button type="button" onClick={() => { setId(item.id); setMsg('are you sure you want to remove this item?'); setConfirm(true) }}>
+                    <Delete type="button" onClick={() => { setId(item.id); setMsg('are you sure you want to remove this item?'); setConfirm(true) }}>
                   x
-                    </button>
+                    </Delete>
                   </td>
                 </tr>
               )
             }
           })}
         </tbody>
-      </table>
-      <div>
-        <button type="button" onClick={() => history.push('/add-item')}>Add Item</button>
-      </div>
+      </Table>
+      <Add type="button" onClick={() => history.push('/add-item')}>Add Item</Add>
       { msg !== '' && <p>{msg}</p>}
-      { confirm && <button type="button" onClick={() => deleteItem()}>DELETE ITEM</button>}
-    </div>
+      { confirm && 
+      <div>
+        <StyledButton type="button" onClick={() => deleteItem()}>YES</StyledButton>
+        <StyledButton 
+          type='button' 
+          onClick={() => { 
+            setMsg('')
+            setConfirm(false) 
+          }}
+        >
+          NO
+        </StyledButton>
+      </div>
+      }
+    </Container>
   )
 }
 

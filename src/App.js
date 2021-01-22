@@ -15,12 +15,15 @@ import Navbar from './containers/Navbar'
 import Search from './containers/Search'
 import Login from './containers/Login'
 import Register from './containers/Register'
+import ScrollToTop from './functions/ScrollToTop'
+
 
 const App = () => (
   <Router>
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
         <div className="App">
+          <ScrollToTop />
           <Navbar />
           <Switch>
             <Route path="/account" component={Account} />

@@ -4,6 +4,7 @@ import { CREATE_ITEM } from './graphql'
 
 import ItemDetails from '../components/ItemDetails'
 import Photo from '../components/Photo'
+import { Body, FlexContainer } from '../styles'
 
 const AddItem = () => {
   const initialState = {
@@ -24,7 +25,7 @@ const AddItem = () => {
     variables: {
       input: {
         name: form.name,
-        sellerId: '04b9f2f0-ea2c-472e-8e04-f43db84dba16', // placeholder ID
+        sellerId: '5b5ead2b-490d-4b63-91a5-413eb67ec209', // placeholder ID
         imgUrl: form.imgUrl,
         description: form.description,
         price: form.price,
@@ -40,13 +41,15 @@ const AddItem = () => {
   })
 
   return (
-    <div>
+    <Body>
+      <br />
       { msg !== '' && <div>{msg}</div> }
       <h1>Add Item to Shop</h1>
-      <Photo value={form.imgUrl} setValue={setForm} />
-      <ItemDetails value={form} setValue={setForm} />
-      <button type="button" onClick={createItem}>Post Item Listing</button>
-    </div>
+      <FlexContainer>
+        <Photo value={form.imgUrl} setValue={setForm} />
+        <ItemDetails value={form} setValue={setForm} action={createItem} msg="Post Item Listing" />
+      </FlexContainer>
+    </Body>
   )
 }
 

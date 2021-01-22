@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { StyledInput } from './styles'
+
 const DetailInput = ({
   label,
   max,
@@ -30,7 +32,7 @@ const DetailInput = ({
   return (
     <>
       {label && <label htmlFor={name}>{label}</label>}
-      <input
+      <StyledInput
         name={name}
         type={type}
         label={label}

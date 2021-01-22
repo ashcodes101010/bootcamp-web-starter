@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { CHANGE_PASS } from './graphql'
 
 import PassInput from './components/PassInput'
+import { StyledButton, Container, Body, InputContainer } from './styles'
 
 const ChangePassword = () => {
   const [newPass, setNewPass] = useState('')
@@ -12,7 +13,7 @@ const ChangePassword = () => {
 
   // UPDATE PLACEHOLDER W/ TOKEN USERID EVENTUALLY
   const [changePassword] = useMutation(CHANGE_PASS, {
-    variables: { id: '04b9f2f0-ea2c-472e-8e04-f43db84dba16', password: newPass },
+    variables: { id: '5b5ead2b-490d-4b63-91a5-413eb67ec209', password: newPass },
     onCompleted: () => {
       setMsg('password updated!')
       setNewPass('')
@@ -30,10 +31,11 @@ const ChangePassword = () => {
   }
 
   return (
-    <div>
+    <Body>
+      <br />
       {msg !== '' && <div>{msg}</div>}
-      <div>
-        <p>Change Password:</p>
+      <Container>
+        <h3>Change Password:</h3>
         <PassInput
           value={newPass}
           setValue={setNewPass}
@@ -47,9 +49,9 @@ const ChangePassword = () => {
         />
         {confirmPass !== newPass && confirmPass !== '' && <p>passwords do not match!</p>}
         <br />
-        <button type="button" onClick={handleSubmit}>Change</button>
-      </div>
-    </div>
+        <StyledButton type="button" onClick={handleSubmit}>Change</StyledButton>
+      </Container>
+    </Body>
   )
 }
 
