@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Container, Row } from './styles'
 import { useHistory } from 'react-router-dom'
+
+import { Container, Row, Button, Search } from './styles'
 
 
 const Home = () => {
@@ -14,11 +15,11 @@ const Home = () => {
     
     return (
         <Container>
-            <h1>Welcome to Marketplace!</h1>
+            <h1>Welcome to The Marketplace!</h1>
             <p>The one stop for all your online shopping</p>
             <Row>
-                <input placeholder='Search items' value={item} onChange={e => setItem(e.target.value)} />
-                <button onClick={() => history.push(`/search/${item}`)}>Search</button>
+                <Search placeholder='Search items' value={item} onChange={e => setItem(e.target.value)} />
+                <Button onClick={() => history.push(`/search/${item}`)}>Search</Button>
             </Row>
         </Container>
     )}
