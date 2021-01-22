@@ -88,7 +88,7 @@ const fetchData = async () => {
         <Button onClick={handleSubmit}>Register</Button>
         <br></br>
         <Text>Already a Member?&nbsp;
-            <Link to="/login">Log In</Link>
+            <Link to="/">Log In</Link>
         </Text>
         <Text>
         </Text>
