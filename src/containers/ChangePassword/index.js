@@ -6,6 +6,7 @@ import PassInput from './components/PassInput'
 import { StyledButton, Container, Body, InputContainer } from './styles'
 
 const ChangePassword = () => {
+  const userId = localStorage.getItem('userId')
   const [newPass, setNewPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
   const [msg, setMsg] = useState('')
@@ -13,7 +14,7 @@ const ChangePassword = () => {
 
   // UPDATE PLACEHOLDER W/ TOKEN USERID EVENTUALLY
   const [changePassword] = useMutation(CHANGE_PASS, {
-    variables: { id: '5b5ead2b-490d-4b63-91a5-413eb67ec209', password: newPass },
+    variables: { id: userId, password: newPass },
     onCompleted: () => {
       setMsg('password updated!')
       setNewPass('')

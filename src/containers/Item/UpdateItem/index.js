@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { useHistory } from 'react-router-dom'
 import { UPDATE_ITEM, SPECIFIC_ITEM } from './graphql'
 
 import ItemDetails from '../components/ItemDetails'
@@ -11,7 +10,8 @@ import { Body, FlexContainer } from '../styles'
 
 const UpdateItem = () => {
   const itemId = useParams().id
-  const history = useHistory()
+  const userId = localStorage.getItem('userId')
+
   const reducer = (prevState, payload) => ({ ...prevState, ...payload })
   const [form, setForm] = useReducer(reducer, {
     description: '',
@@ -34,7 +34,7 @@ const UpdateItem = () => {
       id: itemId,
       input: {
         name: form.name,
-        sellerId: '5b5ead2b-490d-4b63-91a5-413eb67ec209',
+        sellerId: userId,
         imgUrl: form.imgUrl,
         description: form.description,
         price: form.price,

@@ -16,6 +16,7 @@ const AddItem = () => {
     tag: '',
     tags: [],
   }
+  const userId = localStorage.getItem('userId')
 
   const reducer = (prevState, payload) => ({ ...prevState, ...payload })
   const [form, setForm] = useReducer(reducer, initialState)
@@ -25,7 +26,7 @@ const AddItem = () => {
     variables: {
       input: {
         name: form.name,
-        sellerId: '5b5ead2b-490d-4b63-91a5-413eb67ec209', // placeholder ID
+        sellerId: userId,
         imgUrl: form.imgUrl,
         description: form.description,
         price: form.price,

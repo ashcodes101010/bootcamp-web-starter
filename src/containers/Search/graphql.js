@@ -21,18 +21,18 @@ export const ALL_ITEMS = gql`
 
 export const ADD_ITEM = gql`
     mutation addCartItem($input: CartInput!) {
-    addCartItem(input: $input) {
-        id
-        item {
-        id
+        addCartItem(input: $input) {
+            id
+            item {
+                id
+            }
         }
-    }
     }
 `
 export const DECREMENT_STOCK = gql`
     mutation decrementStock($id: ID!) {
-    decrementStock(id: $id) {
-    stock
-  }
-}
+        decrementStock(id: $id) {
+             stock
+        }
+    }
 `
