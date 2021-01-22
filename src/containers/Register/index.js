@@ -19,13 +19,14 @@ const Register = () => {
   const [pass, setPass] = useState('')
   const [email, setEmail] = useState('')
   const [age, setAge] = useState('')
+  const [msg, setMsg] = useState('')
   const [register] = useMutation(REGISTER, {
     variables: {
       input: {
         username,
         email,
         password: pass,
-        age: parseInt(age)
+        age: parseInt(age) || 0,
       }
     },
     onCompleted: ({ register: { token, user: { id } } }) => {
@@ -34,7 +35,7 @@ const Register = () => {
       history.push('/home')
       window.location.reload()
     },
-    onError: error => console.log(error)
+    onError: error => setMsg(error.message.split('GraphQL error: ')[1]),
 })
 const handleSubmit = async () => {
   register()
@@ -58,6 +59,11 @@ const fetchData = async () => {
       <LoginContainer>
         <Title>Register</Title>
         <Text>Kindly fill in your login details to proceed</Text>
+        {msg !== '' && 
+        <>
+          <br />
+          <Text>{msg}</Text>
+        </>}
         <Input
           type="text"
           name="username"

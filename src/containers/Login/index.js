@@ -12,7 +12,6 @@ import {
 } from './styles'
 import { LOGIN } from './graphql'
 
-
 const Login = () => {
 
   const history = useHistory()
@@ -21,6 +20,7 @@ const Login = () => {
   }
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
+  const [msg, setMsg] = useState('')
   const [login] = useMutation(LOGIN, {
     variables: {
       email,
@@ -32,11 +32,17 @@ const Login = () => {
       history.push('/home')
       window.location.reload()
     },
+    onError: () => setMsg('Invalid email/password combo.')
   })
   return (
     <Container>
       <LoginContainer>
         <Title>Log In</Title>
+        {msg !== '' && 
+        <>
+          <Text>{msg}</Text>
+          <br />
+        </>}
         <Input
           type="text"
           name="email"
@@ -52,7 +58,7 @@ const Login = () => {
           value={pass}
         />
         <Button onClick={login}>Login</Button>
-        <br></br>
+        <br />
         <Text>Don&apos;t have an account yet?&nbsp;
             <Link to="/register">Register</Link>
         </Text>
