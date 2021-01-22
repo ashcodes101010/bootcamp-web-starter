@@ -10,7 +10,7 @@ const AddMoney = () => {
   
   const [money, setMoney] = useState('')
   const [msg, setMsg] = useState('')
-  // UPDATE PLACEHOLDER W/ TOKEN USERID EVENTUALLY
+
   const [addMoney] = useMutation(ADD_MONEY, {
     variables: { id: userId, money },
     onError: () => setMsg('could not add funds'),

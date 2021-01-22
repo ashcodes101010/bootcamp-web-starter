@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import { Container, Row, ItemContainer } from './styles'
-import { ALL_ITEMS, ADD_ITEM, DECREMENT_STOCK } from './graphql'
+import { ALL_ITEMS, ADD_ITEM } from './graphql'
 
 // const jwt = require('jsonwebtoken')
 // const token = localStorage.getItem('token')
@@ -42,18 +42,6 @@ const Search = () => {
     },
   })
 
-  const [decrementStock, { error: decrementError, loading: decrementLoading }] = useMutation(DECREMENT_STOCK, {
-    variables: {
-      id: itemId,
-    },
-    onCompleted: () => refetch()
-  })
-
-  const handleCart = () => {
-    addCartItem()
-    decrementStock()
-  }
-
     if (loading) {
         return 'loading...'
     }
@@ -86,7 +74,7 @@ const Search = () => {
                             <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
                             <p>price: ${item.price}</p>
                             <p>stock: {item.stock}</p>
-                            <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
+                            <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={addCartItem}>Add to Cart</button>
 
                             
                         </div>

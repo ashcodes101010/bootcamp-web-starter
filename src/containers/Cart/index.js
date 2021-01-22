@@ -1,17 +1,24 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { REMOVE_ITEM, GET_CART, INCREMENT_STOCK } from './graphql'
-import { useHistory } from 'react-router-dom'
+import { 
+  CLEAR_CART, 
+  REMOVE_ITEM, 
+  REMOVE_MONEY, 
+  GET_CART, 
+  DECREMENT_STOCK, 
+  ADD_TRANSACTIONS 
+} from './graphql'
 
 import { Body, Container, Items, StyledButton, Remove } from './styles'
 
 const Cart = () => {
   const userId = localStorage.getItem('userId')
-  const history = useHistory()
 
   const [cartItemId, setCartItemId] = useState('')
   const [itemId, setItemId] = useState('')
+  const [itemIds, setItemIds] = useState([])
   const [msg, setMsg] = useState('')
+  const [money, setMoney] = useState('')
 
   const { data, loading, error, refetch } = useQuery(GET_CART, {
     variables: { id: userId },
@@ -27,14 +34,54 @@ const Cart = () => {
     }
   })
 
-  const [incrementStock] = useMutation(INCREMENT_STOCK, {
-    variables: { id: itemId },
-    onError: () => setMsg('Could not remove from cart'),
+  const [clearCart] = useMutation(CLEAR_CART, {
+    variables: { id: userId },
+    onError: () => setMsg('Could not complete purchase'),
+    onCompleted: () => {
+      setMsg('Thank you for your purchase(s)!')
+      refetch()
+    }
   })
 
-  const handleRemoval = () => {
-    incrementStock()
-    removeCartItem()
+  const [addTransactions] = useMutation(ADD_TRANSACTIONS, {
+    variables: { id: userId, items: itemIds },
+    onError: () => setMsg('Could not make purchase'),
+  })
+
+  const [decrementStock] = useMutation(DECREMENT_STOCK, {
+    variables: { id: itemIds },
+    onError: () => setMsg('Could not make purchase'),
+  })
+
+  const [removeMoney] = useMutation(REMOVE_MONEY, {
+    variables: { id: userId, money },
+    onError: () => setMsg('could not add funds'),
+    onCompleted: () => {
+      setMoney('')
+    },
+  })
+
+  const handlePurchase = () => {
+    decrementStock()
+    addTransactions()
+    removeMoney()
+    clearCart()
+  }
+
+  const getIds = () => {
+    let list = []
+    data.cart.map(cart => {
+      list.push(cart.item.id)
+    })
+    return list
+  } 
+
+  const getCost = () => {
+    let cost = 0.0
+    data.cart.map(cart => {
+      cost += cart.item.price
+    })
+    return cost
   }
 
   if (loading) return <Body>Loading...</Body>
@@ -65,7 +112,7 @@ const Cart = () => {
                   setCartItemId('')
                   setItemId('')
                 }} 
-                onClick={handleRemoval}
+                onClick={removeCartItem}
               >
                 Remove
               </Remove>
@@ -75,9 +122,13 @@ const Cart = () => {
       </Items>
       <StyledButton 
         type="button" 
-        onClick={() => history.push('/checkout')}
+        onClick={handlePurchase} 
+        onMouseEnter={() => {
+          setMoney(getCost())
+          setItemIds(getIds())
+        }} 
       >
-        Proceed to Checkout
+        Purchase Items
       </StyledButton>
       <br />
     </Body>

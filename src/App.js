@@ -10,7 +10,6 @@ import AddItem from './containers/Item/AddItem'
 import AddMoney from './containers/AddMoney'
 import Cart from './containers/Cart'
 import ChangePassword from './containers/ChangePassword'
-import Checkout from './containers/Checkout'
 import Home from './containers/Home'
 import Login from './containers/Login'
 import Navbar from './containers/Navbar'
@@ -33,7 +32,6 @@ const App = () => (
             <Route path="/add-money" component={AddMoney} />
             <Route path="/cart" component={Cart} />
             <Route path="/change-password" component={ChangePassword} />
-            <Route path="/checkout" component={Checkout} />
             <Route path="/update-item/:id" component={UpdateItem} />
             <Route path="/search/:id" component={Search} children={<Search />} />
             <Route path="/home" component={Home} />

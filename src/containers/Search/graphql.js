@@ -29,10 +29,3 @@ export const ADD_ITEM = gql`
         }
     }
 `
-export const DECREMENT_STOCK = gql`
-    mutation decrementStock($id: ID!) {
-        decrementStock(id: $id) {
-             stock
-        }
-    }
-`
