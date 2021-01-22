@@ -3,9 +3,15 @@ import React, { useState } from 'react'
 import { CHANGE_PASS } from './graphql'
 
 import PassInput from './components/PassInput'
-import { StyledButton, Container, Body, InputContainer } from './styles'
+import { StyledButton, Container, Body } from './styles'
+import { useHistory } from 'react-router-dom'
 
 const ChangePassword = () => {
+  const history = useHistory()
+  if (!localStorage.getItem('token')) {
+    history.push('/')
+  }
+
   const userId = localStorage.getItem('userId')
   const [newPass, setNewPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
