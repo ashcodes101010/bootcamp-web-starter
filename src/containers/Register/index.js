@@ -43,6 +43,7 @@ const Register = () => {
       localStorage.setItem('token', token)
       localStorage.setItem('userId', id)
       history.push('/home')
+      window.location.reload()
     },
 })
 

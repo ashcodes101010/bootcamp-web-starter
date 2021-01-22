@@ -4,19 +4,6 @@ import { Link, useParams, useHistory } from 'react-router-dom'
 import { Container, Header, Grid, Row, ItemContainer, SearchInput, Button } from './styles'
 import { ALL_ITEMS, ADD_ITEM } from './graphql'
 
-// const jwt = require('jsonwebtoken')
-// const token = localStorage.getItem('token')
-// const decodeToken = token => {
-//     if (!token) {
-//         history.push('/login')
-//     }
-//     try {
-//         return jwt.verify(token, config.tokenSecret)
-//     } catch (error) {
-//         history.push('/login')
-//     }
-// }
-
 
 const Search = () => {
     const userId = localStorage.getItem('userId')
@@ -44,11 +31,11 @@ const Search = () => {
   })
 
     if (loading) {
-        return 'loading...'
+        return <Container>Loading...</Container>
     }
     
     if (error) {
-        return 'ERROR'
+        return <Container>Could not load search results.</Container>
     }
 
     return (
