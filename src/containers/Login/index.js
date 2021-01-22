@@ -16,7 +16,11 @@ import { LOGIN } from './graphql'
 
 
 const Login = () => {
+
   const history = useHistory()
+  // if (localStorage.getItem('token')) {
+  //   history.push('/home')
+  // }
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [login, {loading, error}] = useMutation(LOGIN, {
@@ -33,21 +37,22 @@ const Login = () => {
     <Container>
       <LoginContainer>
         <Title>Log In</Title>
-        <Label>Email</Label>
         <Input
           type="text"
           name="email"
+          placeholder="Email"
           onChange={e => setEmail(e.target.value)}
           value={email}
         />
-        <Label>Password</Label>
         <Input
           type="password"
           name="password"
+          placeholder="Password"
           onChange={e => setPass(e.target.value)}
           value={pass}
         />
         <Button onClick={login}>Login</Button>
+        <br></br>
         <Text>Don&apos;t have an account yet?&nbsp;
             <Link to="/register">Register</Link>
         </Text>

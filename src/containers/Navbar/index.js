@@ -12,10 +12,10 @@ const Navbar = () => {
     {/* {isLoggedIn 
     ? 
     <> */}
-      <Link to="/">Home</Link>
+      <Link to="/home">Home</Link>
       <Link to="/cart">My Cart</Link>
       <Link to="/account">My Account</Link>
-      <Link to="/login">Sign Out</Link>
+      <Link to="/">Sign Out</Link>
     {/* </>
     :
     <>
