@@ -21,6 +21,9 @@ import { ALL_ITEMS, ADD_ITEM, DECREMENT_STOCK } from './graphql'
 const Search = () => {
     const userId = localStorage.getItem('userId')
     const history = useHistory()
+    if (!localStorage.getItem('token')) {
+        history.push('/')
+    }
     const { id } = useParams()
     const[item, setItem] = useState()
     const[itemId, setItemId] = useState()

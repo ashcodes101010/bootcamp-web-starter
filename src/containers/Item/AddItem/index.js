@@ -1,12 +1,17 @@
 import React, { useReducer, useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_ITEM } from './graphql'
+import { useHistory } from 'react-router-dom'
 
 import ItemDetails from '../components/ItemDetails'
 import Photo from '../components/Photo'
 import { Body, FlexContainer } from '../styles'
 
 const AddItem = () => {
+  const history = useHistory()
+  if (!localStorage.getItem('token')) {
+    history.push('/')
+  }
   const initialState = {
     description: '',
     imgUrl: '',
