@@ -28,20 +28,20 @@ const Search = () => {
     const[item, setItem] = useState()
     const[itemId, setItemId] = useState()
     
-    const { data, loading, error, refetch } = useQuery(ALL_ITEMS, {
+    const { data, loading, error} = useQuery(ALL_ITEMS, {
         variables: { 
             input: id,
         },
     })
 
-  // const [addCartItem, { error: addItemError, loading: addItemLoading }] = useMutation(ADD_ITEM, {
-  //   variables: {
-  //     input: {
-  //       userId: ?,
-  //       itemId: itemId,
-  //     },
-  //   },
-  // })
+  const [addCartItem] = useMutation(ADD_ITEM, {
+    variables: {
+      input: {
+        userId,
+        itemId,
+      },
+    },
+  })
 
     if (loading) {
         return 'loading...'
@@ -75,7 +75,7 @@ const Search = () => {
                         <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
                         <p>price: ${item.price}</p>
                         <p>stock: {item.stock}</p>
-                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
+                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={addCartItem}>Add to Cart</button>
                     </ItemContainer>
                 ))}
             </Grid>
