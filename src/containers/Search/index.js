@@ -30,10 +30,8 @@ const Search = () => {
             input: id,
         },
     })
-    
-    if (error) {
-        throw new Error('query failed')
-    }
+
+    console.log(data)
 
   const [addCartItem, { error: addItemError, loading: addItemLoading }] = useMutation(ADD_ITEM, {
     variables: {
@@ -56,6 +54,14 @@ const Search = () => {
     decrementStock()
   }
 
+    if (loading) {
+        return 'loading...'
+    }
+    
+    if (error) {
+        return 'ERROR'
+    }
+
     return (
         <>
             <Container>
@@ -65,20 +71,28 @@ const Search = () => {
                     <button onClick={() => history.push(`/search/${item}`)}>Search</button>
                 </Row>
             </Container>
-            <ItemContainer>
-                {loading ? 'loading...' : data.searchItems.map(item => (
-                    <div>
-                        <img src={item.imgUrl}/>
-                        <p>name: {item.name}</p>
-                        <p>seller: {item.seller.username}</p>
-                        <p>desc: {item.description}</p>
-                        <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
-                        <p>price: ${item.price}</p>
-                        <p>stock: {item.stock}</p>
-                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
-                    </div>
-                ))}
-            </ItemContainer>
+            {data.searchItems.length === 0 ?
+            <>
+                <p>No items available</p>
+            </>
+            :
+                <ItemContainer>
+                    {loading ? 'loading...' : data.searchItems.map(item => (
+                        <div>
+                            <img src={item.imgUrl}/>
+                            <p>name: {item.name}</p>
+                            <p>seller: {item.seller.username}</p>
+                            <p>desc: {item.description}</p>
+                            <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
+                            <p>price: ${item.price}</p>
+                            <p>stock: {item.stock}</p>
+                            <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
+
+                            
+                        </div>
+                    ))}
+                </ItemContainer>
+            }   
         </>
     )}
 
