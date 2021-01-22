@@ -2,15 +2,10 @@
 import { useMutation } from '@apollo/react-hooks'
 import React, { useState } from 'react'
 import { ADD_MONEY } from './graphql'
-import { useHistory } from 'react-router-dom'
 
 import { StyledButton, Container, Body, InputContainer } from './styles'
 
 const AddMoney = () => {
-  const history = useHistory()
-  if (!localStorage.getItem('token')) {
-    history.push('/')
-  }
   const userId = localStorage.getItem('userId')
   
   const [money, setMoney] = useState('')

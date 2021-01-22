@@ -4,24 +4,25 @@ import { Container, NavLink } from './styles'
 
 const Navbar = () => {
   
+  // const isLoggedIn = 
+
+
   return (
   <Container>
-    {localStorage.getItem('token') ? 
-    <> 
+    {/* {isLoggedIn 
+    ? 
+    <> */}
       <p>Marketplace</p>
-      <Link to="/home">Home</Link>
+      <Link to="/">Home</Link>
       <Link to="/cart">My Cart</Link>
       <Link to="/account">My Account</Link>
-      <Link to="/" onClick={() => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('userId')
-        window.location.reload()}}>Sign Out</Link>
-    </>
+      <Link to="/login">Sign Out</Link>
+    {/* </>
     :
     <>
-      <Link to="/">Log In</Link>
+      <Link to="/login">Log In</Link>
     </>
-    }
+    } */}
   </Container>
 )}
 

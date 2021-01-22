@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
 import { Container, Row, Button, Search } from './styles'
+import { useHistory } from 'react-router-dom'
 
 
 const Home = () => {
-    const history = useHistory()
     
-    if (!localStorage.getItem('token')) {
-        history.push('/')
-    }
+    const history = useHistory()
     const[item, setItem] = useState()
     console.log(item)
     
