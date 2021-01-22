@@ -27,7 +27,7 @@ const Register = () => {
         username,
         email,
         password: pass,
-        age,
+        age: parseInt(age)
       }
     },
     onCompleted: ({ register: { token } }) => {
@@ -37,16 +37,20 @@ const Register = () => {
     onError: error => console.log(error)
 })
 const handleSubmit = async () => {
-  // await fetchData()
-  register()
+  if (await fetchData()) {
+    register()
+  }
 }
 
 const fetchData = async () => {
+  console.log(email)
   const res = await fetch(`https://apilayer.net/api/check?access_key=d8f63b4dee87bd7953253e42a4b60767&email=${email}&format=1`)
   const data = await res.json()
-  if((data.email.format_valid == false) || (data.email.smtp_check == false)) {
-    throw new Error('This email does not exist anywhere')
+  if(!data.email.format_valid && !data.email.smtp_check) {
+    console.log('Email does not exist anywhere')
+    return false
   }
+
 }
 
   return (
