@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { Link, useParams, useHistory } from 'react-router-dom'
-import { Container, Header, Grid, Row, ItemContainer, SearchInput, Button } from './styles'
+import { useParams, useHistory } from 'react-router-dom'
+import { 
+  Container, 
+  Header, 
+  Grid, 
+  Row, 
+  ItemContainer, 
+  SearchInput, 
+  Button, 
+  AddCartButton,
+} from './styles'
 import { ALL_ITEMS, ADD_ITEM } from './graphql'
 
 
@@ -55,14 +64,20 @@ const Search = () => {
             <Grid>
                 {loading ? 'loading...' : data.searchItems.map(item => (
                     <ItemContainer>
-                        <img src={item.imgUrl}/>
-                        <p>name: {item.name}</p>
-                        <p>seller: {item.seller.username}</p>
-                        <p>desc: {item.description}</p>
-                        <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
-                        <p>price: ${item.price}</p>
-                        <p>stock: {item.stock}</p>
-                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={addCartItem}>Add to Cart</button>
+                        <img src={item.imgUrl} height="300" width="270" alt="item" />
+                        <p>{item.name}&emsp;${item.price}</p>
+                        <p><strong>Seller:</strong> {item.seller.username}</p>
+                        <p><strong>Description:</strong> {item.description}</p>
+                        <p><strong>Tags:</strong> {item.tags.map(tag => { return `${tag.tag} `})}</p>
+                        <p><strong>Stock:</strong> {item.stock}</p>
+                        <AddCartButton 
+                          value={item.id} 
+                          onMouseEnter={e => setItemId(e.target.value)} 
+                          onMouseLeave={() => setItemId('')} 
+                          onClick={addCartItem}
+                        >
+                            Add to Cart
+                        </AddCartButton>
                     </ItemContainer>
                 ))}
             </Grid>

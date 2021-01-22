@@ -38,6 +38,7 @@ const DetailInput = ({
         label={label}
         max={max}
         min={min}
+        maxlength="250"
         value={value[name]}
         onChange={handleChange}
         placeholder={placeholder}

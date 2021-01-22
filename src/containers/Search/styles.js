@@ -26,15 +26,18 @@ export const Row = styled.div`
 
 export const ItemContainer = styled.div`
   background: #FFFFFF;
-  border-radius: 25px;
-  padding: 20px;
-  width: 450px;
-  height: 650px;
+  border-radius: 35px;
+  width: 350px;
+  padding: 40px;
+  margin-left: 20px;
   margin-bottom: 20px;
+  img {
+    border-radius: 35px;
+  }
 `
+
 export const Grid = styled.div`
   display: grid;
-  grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, 500px);
   flex-wrap: wrap;
   padding-left: 30px;
@@ -50,6 +53,21 @@ export const Button = styled.button`
   color: #FFFFFF;
   transition: background-color 0.2s;
   margin-left: 10px;
+
+  &:hover {
+    background-color: #757575;
+  }
+`
+
+export const AddCartButton = styled.button`
+  background-color: #575757;
+  border-radius: 15px;
+  height: 40px;
+  min-width: 150px;
+  font-size: 15px;
+  padding: 5px;
+  color: #FFFFFF;
+  transition: background-color 0.2s;
 
   &:hover {
     background-color: #757575;

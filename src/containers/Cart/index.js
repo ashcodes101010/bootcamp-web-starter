@@ -20,7 +20,6 @@ const Cart = () => {
   const userId = localStorage.getItem('userId')
 
   const [cartItemId, setCartItemId] = useState('')
-  const [itemId, setItemId] = useState('')
   const [itemIds, setItemIds] = useState([])
   const [msg, setMsg] = useState('')
   const [money, setMoney] = useState('')
@@ -75,17 +74,13 @@ const Cart = () => {
 
   const getIds = () => {
     let list = []
-    data.cart.map(cart => {
-      list.push(cart.item.id)
-    })
+    data.cart.map(cart => list.push(cart.item.id))
     return list
   } 
 
   const getCost = () => {
     let cost = 0.0
-    data.cart.map(cart => {
-      cost += cart.item.price
-    })
+    data.cart.map(cart => cost += cart.item.price)
     return cost
   }
 
@@ -99,23 +94,20 @@ const Cart = () => {
       <h1>My Cart</h1>
       <Items>
         {data.cart.map(cart => {
-          const { item : { id, name, description, imgUrl, price, seller: { username } } } = cart
+          const { item : { name, description, imgUrl, price, seller: { username } } } = cart
           return (
             <Container key={cart.id}>
               <img src={imgUrl} alt="Item" height="150" width="150"/>
-              <p>{name}</p>
-              <p>{`$${price}`}</p>
+              <p>{name}&emsp;${price}</p>
               <p>{description}</p>
-              <p>{`Seller: ${username}`}</p>
+              <p><strong>Seller:</strong> {username}</p>
               <Remove 
                 type="button" 
                 onMouseEnter={() => {
                   setCartItemId(cart.id)
-                  setItemId(id)
                 }} 
                 onMouseLeave={() => {
                   setCartItemId('')
-                  setItemId('')
                 }} 
                 onClick={removeCartItem}
               >
