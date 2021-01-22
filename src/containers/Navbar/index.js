@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Container, NavLink, Title } from './styles'
+import { Container, NavLink, Title, LoginContainer, LeftContainer } from './styles'
 
 const Navbar = () => {
   
@@ -8,18 +7,25 @@ const Navbar = () => {
   <Container>
     {localStorage.getItem('token') ? 
     <> 
-      <Title>The Marketplace</Title>
-      <NavLink to="/home">Home</NavLink>
-      <NavLink to="/cart">My Cart</NavLink>
-      <NavLink to="/account">My Account</NavLink>
-      <NavLink to="/" onClick={() => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('userId')
-        window.location.reload()}}>Sign Out</NavLink>
+      <LeftContainer>
+        <Title>The Marketplace</Title>
+        <NavLink to="/home">Home</NavLink>
+        <NavLink to="/cart">My Cart</NavLink>
+        <NavLink to="/account">My Account</NavLink>
+      </LeftContainer>
+      <LoginContainer>
+        <NavLink to="/" onClick={() => {
+          localStorage.removeItem('token')
+          localStorage.removeItem('userId')
+          window.location.reload()}}>Sign Out</NavLink>
+      </LoginContainer>
     </>
     :
     <>
-      <Link to="/">Log In</Link>
+      <Title>The Marketplace</Title>
+      <LoginContainer>
+        <NavLink to="/">Log In</NavLink>
+      </LoginContainer>
     </>
     }
   </Container>
