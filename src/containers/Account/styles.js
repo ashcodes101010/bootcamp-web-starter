@@ -10,7 +10,7 @@ export const Body = styled.div`
 export const Container = styled.div`
   background: #FFFFFF;
   border-radius: 35px;
-  width: 1100px;
+  width: 800px;
   margin: auto;
   padding: 50px;
   margin-bottom: 50px;
@@ -20,7 +20,7 @@ export const Container = styled.div`
 export const Table = styled.table`
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 1000px;
+  width: 700px;
   margin: auto;
 
   th, td {

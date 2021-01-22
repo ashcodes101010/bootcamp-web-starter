@@ -46,7 +46,7 @@ export const Add = styled.button`
   color: #FFFFFF;
   transition: background-color 0.2s;
   margin-top: 5px;
-  margin-right: 890px;
+  margin-right: 590px;
 
   &:hover {
     background-color: #757575;
