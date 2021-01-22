@@ -1,13 +1,19 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { USER } from './graphql'
+import { useHistory } from 'react-router-dom'
 
 import UserInfo from './components/UserInfo'
 import Transaction from './components/Transaction'
 import Shop from './components/Shop'
 import { Body } from './styles'
 
+
 const Account = () => {
+  const history = useHistory()
+  if (!localStorage.getItem('token')) {
+    history.push('/')
+  }
   const userId = localStorage.getItem('userId')
 
   const { data, loading, error, refetch } = useQuery(USER, {

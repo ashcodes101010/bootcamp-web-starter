@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { UPDATE_ITEM, SPECIFIC_ITEM } from './graphql'
 
@@ -9,6 +9,10 @@ import { Body, FlexContainer } from '../styles'
 
 
 const UpdateItem = () => {
+  const history = useHistory()
+  if (!localStorage.getItem('token')) {
+    history.push('/')
+  }
   const itemId = useParams().id
   const userId = localStorage.getItem('userId')
 

@@ -8,10 +8,15 @@ import {
   DECREMENT_STOCK, 
   ADD_TRANSACTIONS 
 } from './graphql'
+import { useHistory } from 'react-router-dom'
 
 import { Body, Container, Items, StyledButton, Remove } from './styles'
 
 const Cart = () => {
+  const history = useHistory()
+  if (!localStorage.getItem('token')) {
+    history.push('/')
+  }
   const userId = localStorage.getItem('userId')
 
   const [cartItemId, setCartItemId] = useState('')
