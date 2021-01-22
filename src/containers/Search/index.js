@@ -19,7 +19,7 @@ import { ALL_ITEMS, ADD_ITEM, DECREMENT_STOCK } from './graphql'
 
 
 const Search = () => {
-    
+    const userId = localStorage.getItem('userId')
     const history = useHistory()
     const { id } = useParams()
     const[item, setItem] = useState()
@@ -35,21 +35,26 @@ const Search = () => {
         throw new Error('query failed')
     }
 
-    // const [addCartItem, error, loading] = useMutation(ADD_ITEM, {
-    //     variables: {
-    //       input: {
-    //         userId: ?,
-    //         itemId: itemId,
-    //       },
-    //     },
-    //   })
+  const [addCartItem, { error: addItemError, loading: addItemLoading }] = useMutation(ADD_ITEM, {
+    variables: {
+      input: {
+        userId,
+        itemId,
+      },
+    },
+  })
 
-    const [decrementStock, { error: addItemError, loading: addItemLoading }] = useMutation(DECREMENT_STOCK, {
-        variables: {
-        id: itemId
-        },
-        onCompleted: () => refetch()
-    })
+  const [decrementStock, { error: decrementError, loading: decrementLoading }] = useMutation(DECREMENT_STOCK, {
+    variables: {
+      id: itemId,
+    },
+    onCompleted: () => refetch()
+  })
+
+  const handleCart = () => {
+    addCartItem()
+    decrementStock()
+  }
 
     return (
         <>
@@ -70,9 +75,7 @@ const Search = () => {
                         <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
                         <p>price: ${item.price}</p>
                         <p>stock: {item.stock}</p>
-                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={decrementStock}>Add to Cart</button>
-
-                        
+                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
                     </div>
                 ))}
             </ItemContainer>

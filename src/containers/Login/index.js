@@ -24,8 +24,9 @@ const Login = () => {
       email,
       password: pass,
     },
-    onCompleted: ({ login: { token } }) => {
+    onCompleted: ({ login: { token, user: { id } } }) => {
       localStorage.setItem('token', token)
+      localStorage.setItem('userId', id)
       history.push('/home')
     },
   })

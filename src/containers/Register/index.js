@@ -39,8 +39,9 @@ const Register = () => {
           country
       }
     },
-    onCompleted: ({ register: { token } }) => {
+    onCompleted: ({ register: { token, user: { id } } }) => {
       localStorage.setItem('token', token)
+      localStorage.setItem('userId', id)
       history.push('/home')
     },
 })
