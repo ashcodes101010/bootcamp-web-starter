@@ -8,15 +8,16 @@ import Shop from './components/Shop'
 import { Body } from './styles'
 
 const Account = () => {
-  const {
-    data, loading, error, refetch,
-  } = useQuery(USER, {
-    variables: { id: '5b5ead2b-490d-4b63-91a5-413eb67ec209' },
+  const userId = localStorage.getItem('userId')
+
+  const { data, loading, error, refetch } = useQuery(USER, {
+    variables: { id: userId },
     partialRefetch: true,
   })
 
   if (error) return (<Body>Unable to load account info.</Body>)
   if (loading) return (<Body>Loading...</Body>)
+  
   const {
     user: {
       username,

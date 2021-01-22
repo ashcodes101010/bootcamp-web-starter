@@ -40,18 +40,6 @@ const Search = () => {
   //   },
   // })
 
-  const [decrementStock, { error: decrementError, loading: decrementLoading }] = useMutation(DECREMENT_STOCK, {
-    variables: {
-      id: itemId,
-    },
-    onCompleted: () => refetch()
-  })
-
-  const handleCart = () => {
-    // addCartItem()
-    decrementStock()
-  }
-
     if (loading) {
         return 'loading...'
     }
@@ -84,7 +72,7 @@ const Search = () => {
                         <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
                         <p>price: ${item.price}</p>
                         <p>stock: {item.stock}</p>
-                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={handleCart}>Add to Cart</button>
+                        <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={addCartItem}>Add to Cart</button>
                     </ItemContainer>
                 ))}
             </Grid>
