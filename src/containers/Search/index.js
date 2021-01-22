@@ -62,35 +62,7 @@ const Search = () => {
         </Header>
         {data.searchItems.length === 0 ?
         <>
-            <Container>
-                <h1>Search results for: { id }</h1>
-                <Row>
-                    <input placeholder='Search items' value={item} onChange={e => setItem(e.target.value)} />
-                    <button onClick={() => history.push(`/search/${item}`)}>Search</button>
-                </Row>
-            </Container>
-            {data.searchItems.length === 0 ?
-            <>
-                <p>No items available</p>
-            </>
-            :
-                <ItemContainer>
-                    {loading ? 'loading...' : data.searchItems.map(item => (
-                        <div>
-                            <img src={item.imgUrl}/>
-                            <p>name: {item.name}</p>
-                            <p>seller: {item.seller.username}</p>
-                            <p>desc: {item.description}</p>
-                            <p>tags: {item.tags.map(tag => { return `${tag.tag} `})}</p>
-                            <p>price: ${item.price}</p>
-                            <p>stock: {item.stock}</p>
-                            <button value={item.id} onMouseEnter={e => setItemId(e.target.value)} onMouseLeave={() => setItemId('')} onClick={addCartItem}>Add to Cart</button>
-
-                            
-                        </div>
-                    ))}
-                </ItemContainer>
-            }   
+            <p>No items available</p>
         </>
         :
             <Grid>
