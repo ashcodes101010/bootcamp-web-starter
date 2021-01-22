@@ -28,28 +28,29 @@ const Register = () => {
         age: parseInt(age)
       }
     },
-    onCompleted: ({ register: { token } }) => {
+    onCompleted: ({ register: { token, user: { id } } }) => {
       localStorage.setItem('token', token)
+      localStorage.setItem('userId', id)
       history.push('/home')
       window.location.reload()
     },
     onError: error => console.log(error)
 })
 const handleSubmit = async () => {
-  if (await fetchData()) {
-    register()
-  }
+  register()
+  // if (await fetchData()) {
+    // register()
+  // }
 }
 
 const fetchData = async () => {
   console.log(email)
-  const res = await fetch(`https://apilayer.net/api/check?access_key=d8f63b4dee87bd7953253e42a4b60767&email=${email}&format=1`)
+  const res = await fetch(`https://apilayer.net/api/check?access_key=7a6e5579ad025cb8980c6fded5ab1a03&email=${email}&smtp=1&format=1`)
   const data = await res.json()
   if(!data.email.format_valid && !data.email.smtp_check) {
     console.log('Email does not exist anywhere')
     return false
   }
-
 }
 
   return (

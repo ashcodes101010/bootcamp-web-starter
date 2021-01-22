@@ -5,12 +5,10 @@ import { Link } from 'react-router-dom'
 import {
   Container,
   LoginContainer,
-  Label,
   Input,
   Title,
   Button,
   Text,
-  IncPass
 } from './styles'
 import { LOGIN } from './graphql'
 
@@ -18,18 +16,19 @@ import { LOGIN } from './graphql'
 const Login = () => {
 
   const history = useHistory()
-  // if (localStorage.getItem('token')) {
-  //   history.push('/home')
-  // }
+  if (localStorage.getItem('token')) {
+     history.push('/home')
+  }
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-  const [login, {loading, error}] = useMutation(LOGIN, {
+  const [login] = useMutation(LOGIN, {
     variables: {
       email,
       password: pass,
     },
-    onCompleted: ({ login: { token } }) => {
+    onCompleted: ({ login: { token, user: { id } } }) => {
       localStorage.setItem('token', token)
+      localStorage.setItem('userId', id)
       history.push('/home')
       window.location.reload()
     },
