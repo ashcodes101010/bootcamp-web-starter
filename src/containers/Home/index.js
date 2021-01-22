@@ -15,7 +15,7 @@ const Home = () => {
     return (
         <Container>
             <h1>Welcome to The Marketplace!</h1>
-            <p>The one stop for all your online shopping</p>
+            <p><em>The one stop for all your online shopping.</em></p>
             <Row>
                 <Search placeholder='Search items' value={item} onChange={e => setItem(e.target.value)} />
                 <Button onClick={() => history.push(`/search/${item}`)}>Search</Button>

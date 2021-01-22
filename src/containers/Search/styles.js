@@ -14,49 +14,58 @@ export const Header = styled.div`
   padding-bottom: 50px;
   margin: auto;
   text-align: center;
+  
 `
 
 export const Row = styled.div`
   display: flex;
   align-content: center;
   justify-content: center;
+  margin-top: 30px;
 `
 
 export const ItemContainer = styled.div`
   background: #FFFFFF;
   border-radius: 25px;
-  border: 2px solid #73AD21;
   padding: 20px;
   width: 450px;
   height: 650px;
+  margin-bottom: 20px;
 `
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 1px;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, 500px);
   flex-wrap: wrap;
-  padding: 20px;
+  padding-left: 30px;
 `
 
 export const Button = styled.button`
-  border-radius: 4px;
-  height: 40px;
-  width: 50px;
-  font-size: 10px;
-  transition: background-color 0.2s, color  0.2s;
-  margin-right: 10px;
-&:hover {
-  color:#000000;
-  background-color: #FFFFFF;
+  background-color: #575757;
+  border-radius: 15px;
+  height: 50px;
+  min-width: 150px;
+  font-size: 15px;
+  padding: 10px;
+  color: #FFFFFF;
+  transition: background-color 0.2s;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: #757575;
   }
 `
 
 export const SearchInput = styled.input`
-    border: 1px solid grey;
-    border-radius: 5px;
-    width: 50%;
-    padding: 2px 23px 2px 30px;
-    outline: 0;
-    background-color: #f5f5f5;
+  background-color: #FFFFFF;
+  border: 1px solid #D1D1D1;
+  box-sizing: border-box;
+  border-radius: 15px;
+  height: 50px;
+  width: 500px;
+  text-align: left;
+  padding: 15px;
+  margin-bottom: 10px;
+  outline-width: 0;
 `
 
